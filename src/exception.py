@@ -4,9 +4,15 @@ from src.logger import logging
 def error_message_details(error,error_detail:sys):
     _,_,exc_tb = error_detail.exc_info()
     file_name = exc_tb.tb_frame.f_code.co_filename
-    error_message = "Error occured in Python Script Name [{0}] Line Number [{1}] Error Message[{2}]".format()
-    file_name  , exc_tb.tb_lineno , str(error)
+    line_number = exc_tb.tb_lineno
+
+    error_message = (
+        f"Error occurred in Python Script [{file_name}] "
+        f"Line Number [{line_number}] "
+        f"Error Message [{error}]"
+    )
     return error_message
+
 
 
 class CustomException(Exception):
