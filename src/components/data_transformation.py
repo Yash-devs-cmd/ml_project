@@ -10,6 +10,7 @@ from sklearn.preprocessing import OneHotEncoder , StandardScaler
 
 from src.exception import CustomException
 from src.logger import logging
+from src.utils import save_object
 
 
 @dataclass 
@@ -105,22 +106,20 @@ class Datatransformation:
 
             train_arr = np.c_[ input_feature_train_arr , np.array(target_feature_train_df)]
             test_arr = np.c_[input_feature_test_arr , np.array(target_feature_test_df)]
-            print('stacked train array' , train_arr)
+            # print('stacked train array' , train_arr)
             
             logging.info('Saved preprocessing object')
             
             # save the pickle file in memory.
-            # save_object(
-
-            #     file_path=self.data_transformation_config.preprocessor_obj_file_path,
-            #     obj=preprocessing_obj
-
-            # )
-            # return (
-            #     train_arr,
-            #     test_arr,
-            #     self.data_transformation_config.preprocessor_obj_file_path,
-            # )
+            save_object(
+                        file_path=self.data_transformation_config.preprocessor_obj_file_path,
+                        obj=preprocessing_obj
+                        )
+            return (
+                train_arr,
+                test_arr,
+                self.data_transformation_config.preprocessor_obj_file_path,
+            )
             
             
 
@@ -128,14 +127,15 @@ class Datatransformation:
             raise CustomException(e,sys)
         
 # root path
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+# PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
-if __name__ == "__main__":
-    obj = Datatransformation()
+# testing  works :)
+# if __name__ == "__main__":
+#     obj = Datatransformation()
 
-    train_path = os.path.join(PROJECT_ROOT, "artifacts", "train.csv")
-    test_path = os.path.join(PROJECT_ROOT, "artifacts", "test.csv")
+#     train_path = os.path.join(PROJECT_ROOT, "artifacts", "train.csv")
+#     test_path = os.path.join(PROJECT_ROOT, "artifacts", "test.csv")
 
-    obj.initiate_data_transformation(train_path, test_path)
+#     obj.initiate_data_transformation(train_path, test_path)
     
             

@@ -5,22 +5,10 @@ from src.logger import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
-
-# Data Ingestion Class for Reading and Fetching Data 
-
-# create Data Ingestion config class and define the path 
-# create Data Ingestion class for intiating data ingestion 
-
-# create project root 
-# read data from dataset  as dataframe 
-# get path of artifact folder 
-# save the dataframe in artifact folder 
-# create train test split 
-# save train and test sets in artifact folder
-# return train and test paths .
+from src.components.data_transformation import Datatransformation
+from src.components.data_transformation import DataTransformationConfig
 
 @dataclass
-# basically the decorator generates .__init__ automatically
 class DataIngestionConfig:
     # create train data path , and the train data will be available in artifacts,same for test-data 
     train_data_path:str = os.path.join('artifacts' , 'train.csv')
@@ -45,7 +33,7 @@ class DataIngestion:
            # join the path and read the dataset as well.
            logging.info('Read The Dataset as Dataframe')
             
-            # get the path of artifact folder.
+            # get the path of artifact folder and create a new folder.
            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path) , exist_ok=True)
         #    print('path of train data:' , (self.ingestion_config.train_data_path))
         #    print('self ingestion config path:' , (self.ingestion_config))
@@ -80,6 +68,10 @@ class DataIngestion:
 if __name__ =="__main__":
     # testing it.
     obj = DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data,test_data =  obj.initiate_data_ingestion()
+    data_transformation = Datatransformation()
+    data_transformation.initiate_data_transformation(train_data , test_data)
+    
+    
 
     
