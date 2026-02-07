@@ -18,12 +18,15 @@ from xgboost import XGBRegressor
 from src.utils import save_object 
 import numpy as np
 from src.utils import evaluate_model
+from src.utils import get_full_path
+from src.utils import prepare_directory
+
 
 # do train-test split , evaluate models , get the best model , save it , get the r2_score by getting the predicted.
 
 @dataclass
 class ModelTrainerConfig:
-    train_model_file_path = os.path.join('artifacts' , 'model.pkl')
+    train_model_file_path = get_full_path('artifacts/model.pkl')
    
 class ModelTrainer:
     def __init__(self):

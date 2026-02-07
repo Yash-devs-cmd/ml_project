@@ -9,14 +9,17 @@ from src.components.data_transformation import Datatransformation
 from src.components.data_transformation import DataTransformationConfig
 from src.components.model_trainer import ModelTrainerConfig
 from src.components.model_trainer import ModelTrainer
+from src.utils import get_full_path
+from src.utils import prepare_directory
+
+
 
 @dataclass
 class DataIngestionConfig:
     # create train data path , and the train data will be available in artifacts,same for test-data 
-    train_data_path:str = os.path.join('artifacts' , 'train.csv')
-    test_data_path:str = os.path.join('artifacts' , 'test.csv')
-    # inital raw data path 
-    raw_data_path:str = os.path.join('artifacts' , 'data.csv')
+    train_data_path: str = get_full_path('artifacts/train.csv')
+    test_data_path: str = get_full_path('artifacts/test.csv')
+    raw_data_path: str = get_full_path('artifacts/data.csv')
 
 class DataIngestion:
     def __init__(self):
@@ -28,21 +31,19 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
         try:
-            # read the data , always read from root. 
-           PROJECT_ROOT = r"C:\Users\Yash0607\Desktop\ML_Projects\ml_project"
-           # root directory.
-           df = pd.read_csv(os.path.join(PROJECT_ROOT , "notebook", "data", "stud.csv"))
+            # read the data
+           source_path = get_full_path('notebook/data/stud.csv')
+           df = pd.read_csv(source_path)
            # join the path and read the dataset as well.
            logging.info('Read The Dataset as Dataframe')
             
             # get the path of artifact folder and create a new folder.
-           os.makedirs(os.path.dirname(self.ingestion_config.train_data_path) , exist_ok=True)
+           prepare_directory(self.ingestion_config.train_data_path)
         #    print('path of train data:' , (self.ingestion_config.train_data_path))
         #    print('self ingestion config path:' , (self.ingestion_config))
             
             # save the dataframe in artifact folder.
            df.to_csv(self.ingestion_config.raw_data_path , index=False , header=True)
-        #    print('saved the dataframe in artifact folder')
            
            
            logging.info("Train Test Split Initiated")

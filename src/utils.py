@@ -41,3 +41,26 @@ def evaluate_model(X_train , y_train , X_test , y_test , models):
     
     except Exception as e:
         raise CustomException(e,sys)
+  
+# get root path  
+def get_project_root():
+     return os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ 
+# get the relative path.
+def get_full_path(relative_path):
+    return os.path.join(get_project_root() , relative_path)
+
+
+def prepare_directory(file_path):
+    """
+    Extracts the directory from a file path and creates 
+    it if it doesn't already exist.
+    """
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+    except Exception as e:
+        raise CustomException(e,sys)
+
+
+    
