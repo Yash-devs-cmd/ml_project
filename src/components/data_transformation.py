@@ -126,16 +126,7 @@ class Datatransformation:
         except Exception as e:
             raise CustomException(e,sys)
         
-# root path
-# PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+        
 
-# testing  works :)
-# if __name__ == "__main__":
-#     obj = Datatransformation()
-
-#     train_path = os.path.join(PROJECT_ROOT, "artifacts", "train.csv")
-#     test_path = os.path.join(PROJECT_ROOT, "artifacts", "test.csv")
-
-#     obj.initiate_data_transformation(train_path, test_path)
     
             

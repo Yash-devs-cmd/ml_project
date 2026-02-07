@@ -47,3 +47,16 @@ Flow:-->
  ->save the object
 
  ->return train,test and file_path of processor and to save in artifacts folder.
+
+
+Model Training Flow :-->
+
+-> intiate model trainer and get the file_path of model.pkl
+
+->split the data into train and test  
+
+-> get all models in form of dictionary 
+
+-> iterate over them and evaluate the models and save it 
+
+-> get the best model and its score
